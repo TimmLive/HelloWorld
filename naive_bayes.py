@@ -11,11 +11,11 @@ sc   = SparkContext(conf=conf)
 htf = HashingTF(10000)
 #let 1 - positive class, 0 - negative class
 #tokenize sentences and transform them into vector space model
-positiveData = sc.textFile("POSITIVE_FILE_PATH")#TODO: load positive file
+positiveData = sc.textFile("rt-polarity-pos.txt")#TODO: load positive file
 posdata = positiveData.map(lambda text : LabeledPoint(1, htf.transform(text.split(" "))))
 print "No. of Positive Sentences: " + str(posdata.count())
 posdata.persist()
-negativeData = sc.textFile("NEGATIVE_FILE_PATH")#TODO: load positive file
+negativeData = sc.textFile("rt-polarity-neg.txt")#TODO: load positive file
 negdata = negativeData.map(lambda text : LabeledPoint(0, htf.transform(text.split(" "))))
 print "No. of Negative Sentences: " + str(negdata.count())
 negdata.persist()
